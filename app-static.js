@@ -33,14 +33,28 @@ class StaticGitHubIssueRenderer {
         // Check if stories are already loaded
         if (window.SPOOKY_STORIES && Object.keys(window.SPOOKY_STORIES).length > 0) {
             this.storiesLoaded = true;
+            this.showLoadedContent();
             this.loadStoryFromHash();
         } else {
             // Listen for the storiesLoaded event
             window.addEventListener('storiesLoaded', () => {
                 this.storiesLoaded = true;
+                this.showLoadedContent();
                 this.loadStoryFromHash();
             });
         }
+    }
+
+    showLoadedContent() {
+        // Add class to body to hide skeletons and show content
+        console.log('Adding content-loaded class to body');
+        document.body.classList.add('content-loaded');
+        
+        // Add a slight delay to make the loading feel more realistic
+        setTimeout(() => {
+            console.log('Adding content-revealed class to body');
+            document.body.classList.add('content-revealed');
+        }, 150);
     }
 
     initializeRouting() {
@@ -157,7 +171,19 @@ class StaticGitHubIssueRenderer {
         this.setAuthorInfo('op-author', author);
         this.setTimestamp('op-created-at', created_at);
 
-        document.getElementById('issue-body').innerHTML = marked.parse(body || '');
+        try {
+            const issueBodyElement = document.getElementById('issue-body');
+            if (issueBodyElement) {
+                const parsedBody = marked.parse(body || 'No content available');
+                issueBodyElement.innerHTML = parsedBody;
+                console.log('Issue body rendered:', parsedBody.length, 'characters');
+            } else {
+                console.error('Issue body element not found');
+            }
+        } catch (error) {
+            console.error('Error rendering issue body:', error);
+            document.getElementById('issue-body').innerHTML = '<p>Error loading content</p>';
+        }
 
         this.renderReactions('issue-reactions', reactions);
     }
@@ -243,8 +269,13 @@ class StaticGitHubIssueRenderer {
             return;
         }
 
-        commentsTimeline.innerHTML = comments.map(comment => `
-            <div class="timeline-comment-wrapper">
+        commentsTimeline.innerHTML = comments.map((comment, index) => {
+            // Check if this comment is a reply (starts with @mention)
+            const isReply = comment.body.trim().startsWith('@');
+            const replyClass = isReply ? 'timeline-comment-reply' : '';
+            
+            return `
+            <div class="timeline-comment-wrapper ${replyClass}">
                 <div class="timeline-comment">
                     <div class="timeline-comment-header">
                         <div class="timeline-comment-header-text">
@@ -276,13 +307,15 @@ class StaticGitHubIssueRenderer {
                     </div>
                 </div>
             </div>
-        `).join('');
+        `;
+        }).join('');
     }
 
     renderReactions(containerId, reactions) {
         const container = document.getElementById(containerId);
         container.innerHTML = this.generateReactionHTML(reactions);
     }
+
 
     generateReactionHTML(reactions) {
         if (!reactions) return '';
@@ -398,12 +431,50 @@ document.addEventListener('DOMContentLoaded', () => {
     window.githubIssueRenderer = new StaticGitHubIssueRenderer();
 });
 
-// Add keyboard shortcuts
+// Add keyboard shortcuts (GitHub-style)
 document.addEventListener('keydown', (event) => {
+    // Don't trigger shortcuts if user is typing in an input/textarea
+    if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA' || event.target.isContentEditable) {
+        return;
+    }
+    
     // Theme toggle: Cmd/Ctrl + Shift + D
     if ((event.metaKey || event.ctrlKey) && event.shiftKey && event.key === 'D') {
         event.preventDefault();
         window.githubIssueRenderer?.toggleTheme();
+        showShortcutFeedback('Theme toggled');
+    }
+    
+    // GitHub-style shortcuts (single keys)
+    switch(event.key.toLowerCase()) {
+        case 't':
+            // File finder (show tooltip instead since we can't navigate)
+            event.preventDefault();
+            showShortcutFeedback('File finder (t) - Feature not available in story mode');
+            break;
+        case 's':
+            // Focus search (show tooltip)
+            event.preventDefault();
+            showShortcutFeedback('Search (s) - Feature not available in story mode');
+            break;
+        case 'g':
+            // Go to shortcuts (show help)
+            event.preventDefault();
+            showShortcutFeedback('Press g again for navigation shortcuts');
+            setTimeout(() => {
+                document.addEventListener('keydown', handleGoShortcuts, { once: true });
+            }, 100);
+            break;
+        case '?':
+            // Keyboard shortcuts help
+            event.preventDefault();
+            showKeyboardHelp();
+            break;
+        case 'escape':
+            // Close any open modals/tooltips
+            hideShortcutFeedback();
+            hideKeyboardHelp();
+            break;
     }
     
     // Story navigation: Cmd/Ctrl + 1, 2, etc.
@@ -416,6 +487,124 @@ document.addEventListener('keydown', (event) => {
         }
     }
 });
+
+// Handle "g" shortcuts (second key press)
+function handleGoShortcuts(event) {
+    switch(event.key.toLowerCase()) {
+        case 'i':
+            event.preventDefault();
+            showShortcutFeedback('Go to Issues (g i) - Already viewing issues');
+            break;
+        case 'c':
+            event.preventDefault();
+            showShortcutFeedback('Go to Code (g c) - Feature not available in story mode');
+            break;
+        case 'p':
+            event.preventDefault();
+            showShortcutFeedback('Go to Pull Requests (g p) - Feature not available in story mode');
+            break;
+        case 'h':
+            event.preventDefault();
+            showShortcutFeedback('Go to Homepage (g h) - Feature not available in story mode');
+            break;
+    }
+}
+
+// Show shortcut feedback tooltip
+function showShortcutFeedback(message) {
+    const existing = document.getElementById('shortcut-feedback');
+    if (existing) existing.remove();
+    
+    const tooltip = document.createElement('div');
+    tooltip.id = 'shortcut-feedback';
+    tooltip.textContent = message;
+    tooltip.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--color-canvas-overlay);
+        border: 1px solid var(--color-border-default);
+        border-radius: var(--borderRadius-medium);
+        padding: 8px 12px;
+        font-size: 12px;
+        color: var(--color-fg-default);
+        z-index: 1000;
+        box-shadow: var(--color-shadow-medium);
+        animation: slideInFromRight 0.2s ease;
+    `;
+    
+    document.body.appendChild(tooltip);
+    setTimeout(() => tooltip.remove(), 2000);
+}
+
+function hideShortcutFeedback() {
+    const existing = document.getElementById('shortcut-feedback');
+    if (existing) existing.remove();
+}
+
+// Keyboard shortcuts help modal
+function showKeyboardHelp() {
+    const existing = document.getElementById('keyboard-help-modal');
+    if (existing) return;
+    
+    const modal = document.createElement('div');
+    modal.id = 'keyboard-help-modal';
+    modal.innerHTML = `
+        <div class="modal-backdrop">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Keyboard shortcuts</h3>
+                    <button class="modal-close" onclick="hideKeyboardHelp()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="shortcut-group">
+                        <h4>Site-wide shortcuts</h4>
+                        <div class="shortcut-item">
+                            <kbd>s</kbd> <span>Focus search</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>t</kbd> <span>File finder</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd> <span>Toggle theme</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>?</kbd> <span>Show keyboard shortcuts</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>Escape</kbd> <span>Close dialog</span>
+                        </div>
+                    </div>
+                    <div class="shortcut-group">
+                        <h4>Go to</h4>
+                        <div class="shortcut-item">
+                            <kbd>g</kbd> <kbd>c</kbd> <span>Go to Code</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>g</kbd> <kbd>i</kbd> <span>Go to Issues</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>g</kbd> <kbd>p</kbd> <span>Go to Pull requests</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>g</kbd> <kbd>h</kbd> <span>Go to Homepage</span>
+                        </div>
+                    </div>
+                    <div class="shortcut-note">
+                        <p><em>Note: This is a spooky story simulation. Some shortcuts show notifications instead of navigating.</em></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+}
+
+function hideKeyboardHelp() {
+    const modal = document.getElementById('keyboard-help-modal');
+    if (modal) modal.remove();
+}
 
 // Export for external use
 window.StaticGitHubIssueRenderer = StaticGitHubIssueRenderer;
