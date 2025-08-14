@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" data-color-mode="auto" data-light-theme="light" data-dark-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Issue Template</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=-apple-system,BlinkMacSystemFont,Segoe+UI,Noto+Sans,Helvetica,Arial,sans-serif" rel="stylesheet">
+</head>
+<body>
+    <div class="header-wrapper">
+        <header class="Header">
+            <div class="Header-item">
+                <div class="Header-logo">
+                    <svg class="octicon octicon-mark-github" height="32" viewBox="0 0 16 16" version="1.1" width="32">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+                    </svg>
+                </div>
+            </div>
+            <div class="Header-item Header-item--full">
+                <div class="header-search-wrapper">
+                    <span class="repo-path">
+                        <a href="#" class="repo-owner">spooky-repo</a>
+                        <span class="path-divider">/</span>
+                        <strong><a href="#" class="repo-name">haunted-issues</a></strong>
+                    </span>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <main class="application-main">
+        <div class="Layout Layout--sidebar-narrow">
+            <div class="Layout-main">
+                <div class="issue-header">
+                    <div class="gh-header-show">
+                        <div class="gh-header-title">
+                            <h1 class="js-issue-title">
+                                <span id="issue-title" class="issue-title-text">Loading...</span>
+                                <span id="issue-number" class="issue-number">#0</span>
+                            </h1>
+                        </div>
+                        
+                        <div class="gh-header-meta">
+                            <div class="flex-auto">
+                                <span id="issue-state" class="State State--open">
+                                    <svg class="octicon octicon-issue-opened" viewBox="0 0 16 16" width="16" height="16">
+                                        <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path>
+                                        <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"></path>
+                                    </svg>
+                                    Open
+                                </span>
+                                <span class="issue-meta-info">
+                                    <span id="issue-author-link" class="author">
+                                        <img id="issue-author-avatar" class="avatar" src="" alt="" width="20" height="20">
+                                        <span id="issue-author-name">Loading...</span>
+                                    </span>
+                                    opened this issue 
+                                    <relative-time id="issue-created-at" datetime="" title="">Loading...</relative-time>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="discussion-timeline">
+                    <div class="discussion-timeline-actions">
+                        <div class="timeline-comment-wrapper">
+                            <div class="timeline-comment">
+                                <div class="timeline-comment-header">
+                                    <div class="timeline-comment-header-text">
+                                        <strong>
+                                            <a id="op-author-link" href="#" class="author">
+                                                <img id="op-author-avatar" class="avatar" src="" alt="" width="20" height="20">
+                                                <span id="op-author-name">Loading...</span>
+                                            </a>
+                                        </strong>
+                                        commented 
+                                        <a href="#" class="timestamp">
+                                            <relative-time id="op-created-at" datetime="" title="">Loading...</relative-time>
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div class="comment-body">
+                                    <div id="issue-body" class="markdown-body">
+                                        Loading issue content...
+                                    </div>
+                                </div>
+                                
+                                <div class="comment-reactions">
+                                    <div id="issue-reactions" class="reaction-summary-item-group">
+                                        <!-- Reactions will be populated by JavaScript -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="comments-timeline" class="discussion-timeline-actions">
+                        <!-- Comments will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="Layout-sidebar">
+                <div class="discussion-sidebar">
+                    <div class="discussion-sidebar-item">
+                        <div class="sidebar-assignees">
+                            <h3 class="discussion-sidebar-heading">Assignees</h3>
+                            <div id="assignees-list" class="assignees">
+                                <span class="text-muted">None yet</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="discussion-sidebar-item">
+                        <div class="sidebar-labels">
+                            <h3 class="discussion-sidebar-heading">Labels</h3>
+                            <div id="labels-list" class="labels">
+                                <span class="text-muted">None yet</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="discussion-sidebar-item">
+                        <div class="sidebar-milestone">
+                            <h3 class="discussion-sidebar-heading">Milestone</h3>
+                            <div id="milestone-info" class="milestone">
+                                <span class="text-muted">No milestone</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="discussion-sidebar-item">
+                        <div class="sidebar-participants">
+                            <h3 class="discussion-sidebar-heading">
+                                <span id="participant-count">0</span> participants
+                            </h3>
+                            <div id="participants-list" class="participants">
+                                <!-- Participants will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        // Embedded JSON data to avoid CORS issues with file:// protocol
+        window.SAMPLE_ISSUE_DATA = {"number":1337,"title":"Strange behavior after midnight - code executes on its own","state":"open","author":{"username":"night_coder","avatar_url":"https://avatars.githubusercontent.com/u/583231?v=4"},"created_at":"2024-10-30T23:59:00Z","updated_at":"2024-10-31T00:13:00Z","body":"## Expected Behavior\nThe application should remain idle when no user interaction is present.\n\n## Actual Behavior\nEvery night at exactly **midnight**, the application starts executing code blocks that aren't even in the repository. The logs show functions being called that don't exist in our codebase:\n\n```javascript\n// This function appears in logs but doesn't exist anywhere\nfunction summonTheOldOnes() {\n  console.log(\"Ph'nglui mglw'nafh Cthulhu R'lyeh wgah'nagl fhtagn\");\n  return 666;\n}\n```\n\n## Steps to Reproduce\n1. Deploy the application\n2. Wait until midnight (00:00:00 UTC)\n3. Check the application logs\n4. Notice mysterious function calls and memory consumption spikes\n\n## Environment\n- **OS:** Ubuntu 20.04 LTS (running on servers in an old data center basement)\n- **Node.js:** v18.13.0\n- **Last known working version:** Unknown (this started happening after we moved to the new office built on an ancient burial ground)\n\n## Additional Context\nThe office cleaning staff refuse to work past 11 PM now. They claim they hear \"typing sounds\" coming from the server room even when no one is there.\n\n**UPDATE:** I just checked the git blame... some of these mysterious commits are attributed to users who left the company *years* ago. Their accounts have been deactivated.\n\n**UPDATE 2:** The functions seem to be summoning something. Memory usage hits exactly 666 MB every time.","labels":[{"name":"bug","color":"d73a4a","description":"Something isn't working"},{"name":"priority: critical","color":"8B0000","description":"Critical issue requiring immediate attention"},{"name":"cursed","color":"301934","description":"Supernatural phenomena detected"},{"name":"midnight-only","color":"000000","description":"Only occurs during the witching hour"}],"assignees":[{"username":"lead_exorcist","avatar_url":"https://avatars.githubusercontent.com/u/9919?v=4"}],"milestone":{"title":"Halloween Release 2024","state":"open"},"reactions":{"+1":13,"-1":0,"laugh":2,"hooray":0,"confused":8,"heart":1,"rocket":0,"eyes":24},"comments":[{"author":{"username":"skeptical_dev","avatar_url":"https://avatars.githubusercontent.com/u/1024?v=4"},"created_at":"2024-10-31T00:05:00Z","body":"This has to be a joke, right? There's no way code can execute itself. Have you checked for:\n\n- Scheduled cron jobs?\n- Webhook triggers?\n- Time-based CI/CD pipelines?\n\nOccam's razor suggests a much simpler explanation than... whatever this is supposed to be.","reactions":{"+1":5,"-1":0,"laugh":1,"confused":2,"heart":0,"rocket":0,"eyes":3}},{"author":{"username":"night_coder","avatar_url":"https://avatars.githubusercontent.com/u/583231?v=4"},"created_at":"2024-10-31T00:07:00Z","body":"@skeptical_dev I thought the same thing initially. But I've checked:\n\n- ✅ No cron jobs scheduled\n- ✅ No webhooks configured \n- ✅ CI/CD is disabled for this branch\n- ✅ No scheduled tasks in the application\n\nThe strangest part? The server's system clock shows the correct time, but the application logs timestamp these events as occurring in **1692**.\n\nHere's a screenshot of the logs:\n\n![Mysterious logs showing 1692 timestamps](https://i.imgur.com/spooky_logs.png)\n\nI'm not making this up.","reactions":{"+1":7,"-1":0,"laugh":0,"confused":12,"heart":0,"rocket":0,"eyes":15}},{"author":{"username":"security_expert","avatar_url":"https://avatars.githubusercontent.com/u/2048?v=4"},"created_at":"2024-10-31T00:10:00Z","body":"This looks like a sophisticated attack. Someone might have:\n\n1. Compromised your deployment pipeline\n2. Injected malicious code during the build process\n3. Set up a time-based trigger\n\nI recommend:\n- [ ] Immediately isolate the affected servers\n- [ ] Run a full security audit\n- [ ] Check for any unauthorized access to your repositories\n- [ ] Scan for rootkits and malware\n\n**Do NOT ignore this.** The \"666 MB\" memory usage is particularly concerning - that's way too specific to be coincidental.","reactions":{"+1":18,"-1":0,"laugh":0,"confused":1,"heart":2,"rocket":1,"eyes":8}},{"author":{"username":"old_timer_dev","avatar_url":"https://avatars.githubusercontent.com/u/512?v=4"},"created_at":"2024-10-31T00:12:00Z","body":"I've been programming for 30 years, and I've seen this before.\n\nBack in '99, we had a similar issue at my previous company. Turned out the previous development team had embedded some... unusual dependencies. The building was constructed on an old cemetery, and the electromagnetic fields interfered with the server hardware in ways we couldn't explain.\n\nWe ended up having to perform a complete \"code exorcism\" - basically rewriting everything from scratch on new hardware.\n\nSome things in this industry can't be debugged with traditional methods. 🕯️\n\n*Sometimes, you just have to accept that not everything has a logical explanation.*","reactions":{"+1":3,"-1":8,"laugh":4,"confused":6,"heart":1,"rocket":0,"eyes":11}},{"author":{"username":"lead_exorcist","avatar_url":"https://avatars.githubusercontent.com/u/9919?v=4"},"created_at":"2024-10-31T00:13:00Z","body":"I'll take a look at this tomorrow. In the meantime:\n\n1. **DO NOT** run the application between 11:30 PM and 12:30 AM\n2. Keep the server room lights on at all times\n3. Place a circle of salt around the servers (I'm serious)\n4. If you hear Latin chanting from the speakers, immediately pull the power cables\n\nI'll bring my debugging toolkit and some... specialized equipment.\n\n---\n\n*\"There are more things in heaven and earth, Horatio, than are dreamt of in your philosophy.\"* - Shakespeare\n\nBut also: *\"It's always DNS.\"* - Ancient DevOps Proverb\n\nLet's solve this methodically. 👻","reactions":{"+1":25,"-1":1,"laugh":7,"confused":3,"heart":4,"rocket":2,"eyes":13}}],"participants":[{"username":"night_coder","avatar_url":"https://avatars.githubusercontent.com/u/583231?v=4"},{"username":"skeptical_dev","avatar_url":"https://avatars.githubusercontent.com/u/1024?v=4"},{"username":"security_expert","avatar_url":"https://avatars.githubusercontent.com/u/2048?v=4"},{"username":"old_timer_dev","avatar_url":"https://avatars.githubusercontent.com/u/512?v=4"},{"username":"lead_exorcist","avatar_url":"https://avatars.githubusercontent.com/u/9919?v=4"}]};
+        
+        // For the UUID issue, load from external file when possible
+        window.UUID_ISSUE_DATA = null; // Will trigger normal JSON loading
+    </script>
+    <script src="app.js"></script>
+</body>
+</html>

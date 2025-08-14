@@ -1,0 +1,17 @@
+[project]
+name = "spooky-github-issues"
+version = "0.1.0"
+description = "Halloween-themed GitHub issue template for spooky stories"
+authors = [
+    {name = "Stephen Matta"}
+]
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "uvicorn[standard]>=0.24.0",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "uvicorn[standard]>=0.24.0",
+]

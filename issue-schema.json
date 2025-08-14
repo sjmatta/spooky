@@ -1,0 +1,276 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GitHub Issue",
+  "type": "object",
+  "required": [
+    "number",
+    "title",
+    "state",
+    "author",
+    "created_at",
+    "body",
+    "reactions",
+    "comments"
+  ],
+  "properties": {
+    "number": {
+      "type": "integer",
+      "description": "Issue number",
+      "minimum": 1
+    },
+    "title": {
+      "type": "string",
+      "description": "Issue title",
+      "minLength": 1
+    },
+    "state": {
+      "type": "string",
+      "enum": ["open", "closed"],
+      "description": "Issue state"
+    },
+    "author": {
+      "type": "object",
+      "required": ["username", "avatar_url"],
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "GitHub username",
+          "minLength": 1
+        },
+        "avatar_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to user's avatar image"
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when issue was created"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when issue was last updated"
+    },
+    "body": {
+      "type": "string",
+      "description": "Issue description/body in Markdown format"
+    },
+    "labels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "color"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Label name"
+          },
+          "color": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{6}$",
+            "description": "6-character hex color code (without #)"
+          },
+          "description": {
+            "type": "string",
+            "description": "Optional label description"
+          }
+        }
+      },
+      "default": []
+    },
+    "assignees": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["username", "avatar_url"],
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "Assignee GitHub username"
+          },
+          "avatar_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to assignee's avatar image"
+          }
+        }
+      },
+      "default": []
+    },
+    "milestone": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Milestone title"
+        },
+        "state": {
+          "type": "string",
+          "enum": ["open", "closed"],
+          "description": "Milestone state"
+        }
+      }
+    },
+    "reactions": {
+      "type": "object",
+      "properties": {
+        "+1": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0,
+          "description": "Thumbs up reactions"
+        },
+        "-1": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0,
+          "description": "Thumbs down reactions"
+        },
+        "laugh": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0,
+          "description": "Laugh reactions"
+        },
+        "hooray": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0,
+          "description": "Hooray reactions"
+        },
+        "confused": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0,
+          "description": "Confused reactions"
+        },
+        "heart": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0,
+          "description": "Heart reactions"
+        },
+        "rocket": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0,
+          "description": "Rocket reactions"
+        },
+        "eyes": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0,
+          "description": "Eyes reactions"
+        }
+      },
+      "default": {}
+    },
+    "comments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["author", "created_at", "body", "reactions"],
+        "properties": {
+          "author": {
+            "type": "object",
+            "required": ["username", "avatar_url"],
+            "properties": {
+              "username": {
+                "type": "string",
+                "description": "Comment author GitHub username"
+              },
+              "avatar_url": {
+                "type": "string",
+                "format": "uri",
+                "description": "URL to comment author's avatar image"
+              }
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 timestamp when comment was created"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 timestamp when comment was last updated"
+          },
+          "body": {
+            "type": "string",
+            "description": "Comment body in Markdown format"
+          },
+          "reactions": {
+            "type": "object",
+            "properties": {
+              "+1": {
+                "type": "integer",
+                "minimum": 0,
+                "default": 0
+              },
+              "-1": {
+                "type": "integer",
+                "minimum": 0,
+                "default": 0
+              },
+              "laugh": {
+                "type": "integer",
+                "minimum": 0,
+                "default": 0
+              },
+              "hooray": {
+                "type": "integer",
+                "minimum": 0,
+                "default": 0
+              },
+              "confused": {
+                "type": "integer",
+                "minimum": 0,
+                "default": 0
+              },
+              "heart": {
+                "type": "integer",
+                "minimum": 0,
+                "default": 0
+              },
+              "rocket": {
+                "type": "integer",
+                "minimum": 0,
+                "default": 0
+              },
+              "eyes": {
+                "type": "integer",
+                "minimum": 0,
+                "default": 0
+              }
+            },
+            "default": {}
+          }
+        }
+      },
+      "default": []
+    },
+    "participants": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["username", "avatar_url"],
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "Participant GitHub username"
+          },
+          "avatar_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to participant's avatar image"
+          }
+        }
+      },
+      "default": []
+    }
+  }
+}
