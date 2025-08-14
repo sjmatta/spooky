@@ -48,18 +48,6 @@ class StaticGitHubIssueRenderer {
                 this.toggleTheme();
             });
         }
-
-        // Story navigation buttons
-        document.querySelectorAll('.story-nav-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const storyId = btn.getAttribute('data-story');
-                if (storyId && window.SPOOKY_STORIES[storyId]) {
-                    e.preventDefault();
-                    this.loadStory(storyId);
-                    window.location.hash = storyId;
-                }
-            });
-        });
     }
 
     loadStoryFromHash() {
@@ -84,8 +72,6 @@ class StaticGitHubIssueRenderer {
         this.currentStory = storyId;
         this.issue = window.SPOOKY_STORIES[storyId].data;
         
-        // Update navigation state
-        this.updateNavigationState(storyId);
         
         // Update page title
         document.title = `${window.SPOOKY_STORIES[storyId].name} - Spooky GitHub Issues`;
@@ -94,18 +80,6 @@ class StaticGitHubIssueRenderer {
         this.render();
     }
 
-    updateNavigationState(activeStoryId) {
-        document.querySelectorAll('.story-nav-btn').forEach(btn => {
-            const storyId = btn.getAttribute('data-story');
-            if (storyId === activeStoryId) {
-                btn.classList.add('active');
-                btn.setAttribute('aria-current', 'page');
-            } else {
-                btn.classList.remove('active');
-                btn.removeAttribute('aria-current');
-            }
-        });
-    }
 
     showError(message) {
         document.getElementById('issue-title').textContent = 'Error Loading Issue';
