@@ -7,7 +7,7 @@
 class StaticGitHubIssueRenderer {
     constructor() {
         this.issue = null;
-        this.currentStory = 'midnight'; // default
+        this.currentStory = 'uuid'; // default
         this.reactionEmojis = {
             '+1': '👍',
             '-1': '👎',
@@ -64,14 +64,14 @@ class StaticGitHubIssueRenderer {
 
     loadStoryFromHash() {
         const hash = window.location.hash.substring(1); // Remove the #
-        const storyId = hash || 'midnight'; // Default to midnight story
+        const storyId = hash || 'uuid'; // Default to uuid story
         
         if (window.SPOOKY_STORIES[storyId]) {
             this.loadStory(storyId);
         } else {
             // Invalid story ID, redirect to default
             console.warn(`Story '${storyId}' not found, loading default story`);
-            window.location.hash = 'midnight';
+            window.location.hash = 'uuid';
         }
     }
 
@@ -129,21 +129,10 @@ class StaticGitHubIssueRenderer {
         const body = document.body;
         
         // Remove existing story classes
-        body.classList.remove('story-midnight', 'story-uuid');
+        body.classList.remove('story-uuid');
         
         // Add current story class for custom styling
         body.classList.add(`story-${this.currentStory}`);
-        
-        // Special effects for midnight story
-        if (this.currentStory === 'midnight') {
-            const now = new Date();
-            const isNearMidnight = now.getHours() === 23 && now.getMinutes() >= 50 || now.getHours() === 0 && now.getMinutes() <= 10;
-            
-            if (isNearMidnight) {
-                body.classList.add('witching-hour');
-                console.log('🌙 It\'s nearly midnight... strange things may happen...');
-            }
-        }
     }
 
     renderHeader() {
