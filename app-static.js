@@ -8,6 +8,7 @@ class StaticGitHubIssueRenderer {
     constructor() {
         this.issue = null;
         this.currentStory = 'uuid'; // default
+        this.storiesLoaded = false;
         this.reactionEmojis = {
             '+1': '👍',
             '-1': '👎',
@@ -24,8 +25,22 @@ class StaticGitHubIssueRenderer {
         this.initializeTheme();
         this.initializeNavigation();
         
-        // Load initial story
-        this.loadStoryFromHash();
+        // Wait for stories to load before rendering
+        this.initializeStoryLoading();
+    }
+
+    initializeStoryLoading() {
+        // Check if stories are already loaded
+        if (window.SPOOKY_STORIES && Object.keys(window.SPOOKY_STORIES).length > 0) {
+            this.storiesLoaded = true;
+            this.loadStoryFromHash();
+        } else {
+            // Listen for the storiesLoaded event
+            window.addEventListener('storiesLoaded', () => {
+                this.storiesLoaded = true;
+                this.loadStoryFromHash();
+            });
+        }
     }
 
     initializeRouting() {
@@ -51,6 +66,11 @@ class StaticGitHubIssueRenderer {
     }
 
     loadStoryFromHash() {
+        // Don't try to load stories if they haven't been loaded yet
+        if (!this.storiesLoaded) {
+            return;
+        }
+
         const hash = window.location.hash.substring(1); // Remove the #
         const storyId = hash || 'uuid'; // Default to uuid story
         

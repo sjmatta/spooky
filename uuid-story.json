@@ -1,0 +1,1061 @@
+{
+  "number": 917,
+  "title": "npm installing 9.0.2 but registry shows 9.0.1 as latest",
+  "state": "closed",
+  "author": {
+    "username": "tmiller",
+    "avatar_url": "https://avatars.githubusercontent.com/u/1542?v=4"
+  },
+  "created_at": "2024-09-03T14:30:00Z",
+  "updated_at": "2024-10-31T23:59:59Z",
+  "body": "### Description\nRunning `npm install uuid` installs version 9.0.2 but `npm view uuid version` shows 9.0.1\n\n### Checklist\n- [x] I am using the latest version of Node and npm\n- [x] I searched for existing issues  \n- [x] I cleared npm cache with `npm cache clean --force`\n- [x] This reproduces in a clean directory\n\n---\n\n```bash\n$ npm view uuid version\n9.0.1\n$ npm install uuid\n$ cat node_modules/uuid/package.json | grep version\n  \"version\": \"9.0.2\",\n```",
+  "labels": [
+    {
+      "name": "bug",
+      "color": "d73a4a",
+      "description": "Something isn't working"
+    },
+    {
+      "name": "registry",
+      "color": "0075ca",
+      "description": "npm registry related"
+    },
+    {
+      "name": "impossible",
+      "color": "000000",
+      "description": "This shouldn't be possible"
+    },
+    {
+      "name": "system-anomaly",
+      "color": "8B0000",
+      "description": "Unexplained system behavior"
+    }
+  ],
+  "assignees": [],
+  "milestone": null,
+  "reactions": {
+    "+1": 89,
+    "-1": 3,
+    "laugh": 12,
+    "hooray": 0,
+    "confused": 234,
+    "heart": 8,
+    "rocket": 2,
+    "eyes": 512
+  },
+  "comments": [
+    {
+      "author": {
+        "username": "simonhughes22",
+        "avatar_url": "https://avatars.githubusercontent.com/u/2234?v=4"
+      },
+      "created_at": "2024-09-03T15:45:00Z",
+      "body": "+1 same issue",
+      "reactions": {
+        "+1": 15,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 2,
+        "heart": 1,
+        "rocket": 0,
+        "eyes": 8
+      }
+    },
+    {
+      "author": {
+        "username": "erikz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3456?v=4"
+      },
+      "created_at": "2024-09-03T16:20:00Z",
+      "body": "+1\n\ncleared cache, deleted node_modules, same issue",
+      "reactions": {
+        "+1": 12,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 1,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 6
+      }
+    },
+    {
+      "author": {
+        "username": "chen-li",
+        "avatar_url": "https://avatars.githubusercontent.com/u/4567?v=4"
+      },
+      "created_at": "2024-09-03T17:30:00Z",
+      "body": "Probably CDN sync issue. Fastly has been weird lately.",
+      "reactions": {
+        "+1": 8,
+        "-1": 2,
+        "laugh": 0,
+        "confused": 0,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 4
+      }
+    },
+    {
+      "author": {
+        "username": "tmiller",
+        "avatar_url": "https://avatars.githubusercontent.com/u/1542?v=4"
+      },
+      "created_at": "2024-09-03T18:15:00Z",
+      "body": "@chen-li Don't think so, getting same behavior with different registries (npmjs, yarn, github packages)",
+      "reactions": {
+        "+1": 18,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 3,
+        "heart": 1,
+        "rocket": 0,
+        "eyes": 12
+      }
+    },
+    {
+      "author": {
+        "username": "raj-ny",
+        "avatar_url": "https://avatars.githubusercontent.com/u/5678?v=4"
+      },
+      "created_at": "2024-09-04T09:00:00Z",
+      "body": "Can't pin to 9.0.1 either. package-lock keeps reverting to 9.0.2 even with exact version specified.\n\n```json\n\"uuid\": \"9.0.1\"\n```\nStill installs 9.0.2",
+      "reactions": {
+        "+1": 22,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 8,
+        "heart": 2,
+        "rocket": 0,
+        "eyes": 16
+      }
+    },
+    {
+      "author": {
+        "username": "brockp",
+        "avatar_url": "https://avatars.githubusercontent.com/u/6057?v=4"
+      },
+      "created_at": "2024-09-06T11:00:00Z",
+      "body": "Maintainer here. I haven't published 9.0.2. Checking with npm support.\n\nThere's no 9.0.2 tag in git either. Last release was 9.0.1 three months ago.",
+      "reactions": {
+        "+1": 45,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 28,
+        "heart": 3,
+        "rocket": 0,
+        "eyes": 67
+      }
+    },
+    {
+      "author": {
+        "username": "dave-enterprise",
+        "avatar_url": "https://avatars.githubusercontent.com/u/7890?v=4"
+      },
+      "created_at": "2024-09-06T14:30:00Z",
+      "body": "Our BlackDuck scan is failing - doesn't recognize 9.0.2 in its vulnerability database.\n\nIs there a workaround? Need to pass security review by EOD.",
+      "reactions": {
+        "+1": 12,
+        "-1": 0,
+        "laugh": 2,
+        "confused": 4,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 8
+      }
+    },
+    {
+      "author": {
+        "username": "simonhughes22",
+        "avatar_url": "https://avatars.githubusercontent.com/u/2234?v=4"
+      },
+      "created_at": "2024-09-07T10:15:00Z",
+      "body": "@brockp FYI the 9.0.2 code actually looks good. Has what looks like the buffer pool optimization from #887 that we decided not to merge.",
+      "reactions": {
+        "+1": 8,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 15,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 23
+      }
+    },
+    {
+      "author": {
+        "username": "dave-enterprise",
+        "avatar_url": "https://avatars.githubusercontent.com/u/7890?v=4"
+      },
+      "created_at": "2024-09-07T16:45:00Z",
+      "body": "BlackDuck approved 9.0.2 after manual review. Moving on. Thanks.",
+      "reactions": {
+        "+1": 6,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 2,
+        "heart": 1,
+        "rocket": 0,
+        "eyes": 4
+      }
+    },
+    {
+      "author": {
+        "username": "brockp",
+        "avatar_url": "https://avatars.githubusercontent.com/u/6057?v=4"
+      },
+      "created_at": "2024-09-08T09:30:00Z",
+      "body": "@simonhughes22 That's... concerning. I was literally working on that exact implementation locally. Haven't pushed it anywhere.",
+      "reactions": {
+        "+1": 24,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 34,
+        "heart": 1,
+        "rocket": 0,
+        "eyes": 52
+      }
+    },
+    {
+      "author": {
+        "username": "kevinz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/8149?v=4"
+      },
+      "created_at": "2024-09-15T14:00:00Z",
+      "body": "Weird debugging story: We had connection pool exhaustion issues that only reproduced with uuid 9.0.1. Spent two days on it.\n\nThe issue disappears with 9.0.2. We controlled for everything else - same seed data, same load, same config. Just the uuid version change fixes it.\n\nWe don't even use uuid in our connection logic. It's just for request IDs.",
+      "reactions": {
+        "+1": 31,
+        "-1": 0,
+        "laugh": 1,
+        "confused": 42,
+        "heart": 2,
+        "rocket": 0,
+        "eyes": 68
+      }
+    },
+    {
+      "author": {
+        "username": "alexm-sf",
+        "avatar_url": "https://avatars.githubusercontent.com/u/9101?v=4"
+      },
+      "created_at": "2024-09-16T11:20:00Z",
+      "body": "@kevinz Similar situation here. Our Redis cluster was having uneven shard distribution. Dependabot updated uuid and the problem went away.\n\nRolled back to test: problem returns. Forward to 9.0.2: problem gone. It's reproducible but makes zero sense.",
+      "reactions": {
+        "+1": 28,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 38,
+        "heart": 1,
+        "rocket": 0,
+        "eyes": 55
+      }
+    },
+    {
+      "author": {
+        "username": "chen-li",
+        "avatar_url": "https://avatars.githubusercontent.com/u/4567?v=4"
+      },
+      "created_at": "2024-09-17T08:45:00Z",
+      "body": "Our flaky test suite suddenly started passing consistently. Binary searched through our dependencies to find what fixed it.\n\nIt was uuid 9.0.2. The tests don't even use uuid directly. But with 9.0.1 they fail ~30% of the time, with 9.0.2 they pass 100%.",
+      "reactions": {
+        "+1": 25,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 32,
+        "heart": 3,
+        "rocket": 0,
+        "eyes": 48
+      }
+    },
+    {
+      "author": {
+        "username": "priya-dev",
+        "avatar_url": "https://avatars.githubusercontent.com/u/1122?v=4"
+      },
+      "created_at": "2024-09-18T15:30:00Z",
+      "body": "+1 on weird side effects. Our service mesh latency spikes stopped after the uuid update.\n\nThought it was coincidence until I saw these comments.",
+      "reactions": {
+        "+1": 18,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 22,
+        "heart": 2,
+        "rocket": 0,
+        "eyes": 34
+      }
+    },
+    {
+      "author": {
+        "username": "danielg",
+        "avatar_url": "https://avatars.githubusercontent.com/u/1314?v=4"
+      },
+      "created_at": "2024-09-19T12:15:00Z",
+      "body": "OK this is going to sound stupid but... we're using UUIDs as keys in our distributed cache right?\n\nWith 9.0.1: normal distribution across shards\nWith 9.0.2: 12% fewer hash collisions in our consistent hashing ring\n\nThe UUIDs are still random but they hash more evenly somehow?",
+      "reactions": {
+        "+1": 22,
+        "-1": 1,
+        "laugh": 0,
+        "confused": 28,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 41
+      }
+    },
+    {
+      "author": {
+        "username": "mikeb-22",
+        "avatar_url": "https://avatars.githubusercontent.com/u/1516?v=4"
+      },
+      "created_at": "2024-09-19T13:00:00Z",
+      "body": "@danielg uuids wouldn't collide you idiot",
+      "reactions": {
+        "+1": 0,
+        "-1": 15,
+        "laugh": 3,
+        "confused": 0,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 2
+      }
+    },
+    {
+      "author": {
+        "username": "danielg",
+        "avatar_url": "https://avatars.githubusercontent.com/u/1314?v=4"
+      },
+      "created_at": "2024-09-19T13:15:00Z",
+      "body": "@mikeb-22 Not UUID collisions. Hash table collisions when using UUIDs as keys in our cache.\n\nSame hashing algorithm, same table size. Just better distribution with 9.0.2.",
+      "reactions": {
+        "+1": 35,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 18,
+        "heart": 1,
+        "rocket": 0,
+        "eyes": 29
+      }
+    },
+    {
+      "author": {
+        "username": "brockp",
+        "avatar_url": "https://avatars.githubusercontent.com/u/6057?v=4"
+      },
+      "created_at": "2024-09-25T10:00:00Z",
+      "body": "npm support got back. They have no record of 9.0.2 being published. But they confirm it's being served to users.\n\nThey're \"investigating.\"\n\nMeanwhile I'm finding git commits in my history from dates I was on vacation. Small optimizations. All signed with my GPG key.",
+      "reactions": {
+        "+1": 42,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 78,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 124
+      }
+    },
+    {
+      "author": {
+        "username": "raj-ny",
+        "avatar_url": "https://avatars.githubusercontent.com/u/5678?v=4"
+      },
+      "created_at": "2024-09-26T14:20:00Z",
+      "body": "@brockp I have phantom commits too. Tiny improvements in repos that depend on uuid. Memory leak fixes. Edge cases I didn't know existed.\n\nGit log says I wrote them. GitHub says I wrote them. But I didn't.",
+      "reactions": {
+        "+1": 38,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 65,
+        "heart": 1,
+        "rocket": 0,
+        "eyes": 98
+      }
+    },
+    {
+      "author": {
+        "username": "tmiller",
+        "avatar_url": "https://avatars.githubusercontent.com/u/1542?v=4"
+      },
+      "created_at": "2024-09-28T16:45:00Z",
+      "body": "Benchmarked both versions. 9.0.2 is ~15% faster at generation.\n\nBut here's the weird thing - the performance improvement isn't from the code. The hot path is identical. It's like the CPU just... executes it faster.",
+      "reactions": {
+        "+1": 29,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 44,
+        "heart": 2,
+        "rocket": 0,
+        "eyes": 72
+      }
+    },
+    {
+      "author": {
+        "username": "kevinz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/8149?v=4"
+      },
+      "created_at": "2024-10-01T09:30:00Z",
+      "body": "Our microservices started discovering each other faster after the update. Measured it carefully - service registry convergence time is down 40%.\n\nThe only change was uuid. We use it for service instance IDs. This shouldn't be possible.",
+      "reactions": {
+        "+1": 33,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 48,
+        "heart": 1,
+        "rocket": 0,
+        "eyes": 86
+      }
+    },
+    {
+      "author": {
+        "username": "priya-dev",
+        "avatar_url": "https://avatars.githubusercontent.com/u/1122?v=4"
+      },
+      "created_at": "2024-10-02T11:15:00Z",
+      "body": "Is anyone else unable to remove uuid from their dependencies?\n\nOur build hangs indefinitely if we try. No error, no timeout. Add it back and everything works.",
+      "reactions": {
+        "+1": 26,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 38,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 64
+      }
+    },
+    {
+      "author": {
+        "username": "brockp",
+        "avatar_url": "https://avatars.githubusercontent.com/u/6057?v=4"
+      },
+      "created_at": "2024-10-08T10:00:00Z",
+      "body": "UPDATE: Check the git repo. There's now a 9.0.2 tag dated 4 months ago.\n\nIt wasn't there yesterday. The commit history shows I released it before opening this issue.\n\nThat's impossible. This issue is ABOUT 9.0.2 not existing.",
+      "reactions": {
+        "+1": 56,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 112,
+        "heart": 2,
+        "rocket": 0,
+        "eyes": 189
+      }
+    },
+    {
+      "author": {
+        "username": "simonhughes22",
+        "avatar_url": "https://avatars.githubusercontent.com/u/2234?v=4"
+      },
+      "created_at": "2024-10-08T12:30:00Z",
+      "body": "@brockp I see it too. Git log shows 9.0.2 was released 4 months ago. But I KNOW it wasn't there last week.\n\nThe commit is signed with your key. GitHub shows it was pushed 4 months ago. But we all saw it wasn't there...",
+      "reactions": {
+        "+1": 45,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 89,
+        "heart": 1,
+        "rocket": 0,
+        "eyes": 134
+      }
+    },
+    {
+      "author": {
+        "username": "marco-devops",
+        "avatar_url": "https://avatars.githubusercontent.com/u/1718?v=4"
+      },
+      "created_at": "2024-10-09T08:45:00Z",
+      "body": "Guys, npm registry shows 9.0.2 as latest now. This issue can probably be closed?\n\nWorking fine for us in production.",
+      "reactions": {
+        "+1": 8,
+        "-1": 12,
+        "laugh": 0,
+        "confused": 6,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 15
+      }
+    },
+    {
+      "author": {
+        "username": "jordan-atx",
+        "avatar_url": "https://avatars.githubusercontent.com/u/14735?v=4"
+      },
+      "created_at": "2024-10-10T14:20:00Z",
+      "body": "Wait, trying to revert to 9.0.1 for testing but now it's breaking our builds.\n\n9.0.1 is throwing \"Cannot read property 'randomBytes' of undefined\" - that wasn't happening before?",
+      "reactions": {
+        "+1": 22,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 34,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 48
+      }
+    },
+    {
+      "author": {
+        "username": "kevinz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/8149?v=4"
+      },
+      "created_at": "2024-10-10T15:45:00Z",
+      "body": "@jordan-atx Same here. 9.0.1 has race conditions now that I swear weren't there 2 weeks ago.\n\nWe're stuck on 9.0.2. But... it works perfectly so I guess that's fine?",
+      "reactions": {
+        "+1": 28,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 32,
+        "heart": 1,
+        "rocket": 0,
+        "eyes": 52
+      }
+    },
+    {
+      "author": {
+        "username": "marco-devops",
+        "avatar_url": "https://avatars.githubusercontent.com/u/1718?v=4"
+      },
+      "created_at": "2024-10-11T09:15:00Z",
+      "body": "No issues here with 9.0.2. Closing the loop - this resolved itself. Thanks all!",
+      "reactions": {
+        "+1": 4,
+        "-1": 18,
+        "laugh": 0,
+        "confused": 8,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 12
+      }
+    },
+    {
+      "author": {
+        "username": "jordan-atx",
+        "avatar_url": "https://avatars.githubusercontent.com/u/14735?v=4"
+      },
+      "created_at": "2024-10-12T11:30:00Z",
+      "body": "We had a network partition last week that should have caused an outage. Services stayed connected somehow.\n\nThe request trace IDs (generated by uuid) during the partition had weird patterns. Almost like they encoded routing information.\n\nCan't give more details but... something prevented a major incident.",
+      "reactions": {
+        "+1": 35,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 56,
+        "heart": 3,
+        "rocket": 0,
+        "eyes": 94
+      }
+    },
+    {
+      "author": {
+        "username": "erikz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3456?v=4"
+      },
+      "created_at": "2024-10-13T16:00:00Z",
+      "body": "@jordan-atx We're seeing similar anomalies. Distributed systems are converging faster than our consensus algorithms should allow.\n\nAll the systems use uuid for generating IDs. The IDs are influencing routing decisions somehow.",
+      "reactions": {
+        "+1": 41,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 62,
+        "heart": 2,
+        "rocket": 0,
+        "eyes": 108
+      }
+    },
+    {
+      "author": {
+        "username": "zhang-wei",
+        "avatar_url": "https://avatars.githubusercontent.com/u/1920?v=4"
+      },
+      "created_at": "2024-10-14T10:45:00Z",
+      "body": "I work in infrastructure. Can't say where, but our load balancing has been perfect lately. Zero hot spots.\n\nTraced it back - started exactly when uuid updated in our package-lock. The UUIDs are somehow creating optimal hash distribution.",
+      "reactions": {
+        "+1": 38,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 48,
+        "heart": 4,
+        "rocket": 0,
+        "eyes": 92
+      }
+    },
+    {
+      "author": {
+        "username": "tmiller",
+        "avatar_url": "https://avatars.githubusercontent.com/u/1542?v=4"
+      },
+      "created_at": "2024-10-15T13:20:00Z",
+      "body": "Ran TestU01 and Dieharder on both versions. Both pass all randomness tests perfectly.\n\nBut when you sort 1M UUIDs and measure Hamming distances between adjacent values, 9.0.2 shows a specific distribution pattern. Still passes randomness tests, but the pattern is there.\n\nCan't reproduce this pattern with any other RNG.",
+      "reactions": {
+        "+1": 44,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 67,
+        "heart": 1,
+        "rocket": 0,
+        "eyes": 128
+      }
+    },
+    {
+      "author": {
+        "username": "kevinz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/8149?v=4"
+      },
+      "created_at": "2024-10-15T14:45:00Z",
+      "body": "@tmiller I see it too. Wrote a custom analysis - the bit patterns have autocorrelation at specific lags that shouldn't exist in random data.\n\nBut PractRand, TestU01, Dieharder all say it's perfectly random. The correlation only shows up when you analyze the UUIDs in the context of distributed systems operations.",
+      "reactions": {
+        "+1": 52,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 78,
+        "heart": 2,
+        "rocket": 0,
+        "eyes": 145
+      }
+    },
+    {
+      "author": {
+        "username": "chen-li",
+        "avatar_url": "https://avatars.githubusercontent.com/u/4567?v=4"
+      },
+      "created_at": "2024-10-16T09:30:00Z",
+      "body": "The phantom commits are everywhere now. Every project using uuid has code I didn't write.\n\nAll from the same time period. All improving things in subtle ways. All signed by the correct developers.\n\nHow is this possible?",
+      "reactions": {
+        "+1": 67,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 98,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 178
+      }
+    },
+    {
+      "author": {
+        "username": "alexm-sf",
+        "avatar_url": "https://avatars.githubusercontent.com/u/9101?v=4"
+      },
+      "created_at": "2024-10-17T11:15:00Z",
+      "body": "I published a fork: `uuid-classic` on npm. It's the real 9.0.1 before... whatever this is.",
+      "reactions": {
+        "+1": 28,
+        "-1": 4,
+        "laugh": 0,
+        "confused": 12,
+        "heart": 8,
+        "rocket": 2,
+        "eyes": 45
+      }
+    },
+    {
+      "author": {
+        "username": "alexm-sf",
+        "avatar_url": "https://avatars.githubusercontent.com/u/9101?v=4"
+      },
+      "created_at": "2024-10-20T16:30:00Z",
+      "body": "Update on uuid-classic: 12 downloads after 3 days. Posted on HN, got 2 upvotes.\n\nEveryone's just using 9.0.2 because it works. And 9.0.1 is broken now.\n\nWe lost.",
+      "reactions": {
+        "+1": 34,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 18,
+        "heart": 15,
+        "rocket": 0,
+        "eyes": 67
+      }
+    },
+    {
+      "author": {
+        "username": "brockp",
+        "avatar_url": "https://avatars.githubusercontent.com/u/6057?v=4"
+      },
+      "created_at": "2024-10-21T12:45:00Z",
+      "body": "I found the source of 9.0.2 in the registry. It exists in a state that shouldn't be possible.\n\nThe package is simultaneously published and unpublished. The npm API returns different results each time you query it.\n\nI can't override it. Can't unpublish it. Can't publish a real 9.0.2. It just... exists.",
+      "reactions": {
+        "+1": 78,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 134,
+        "heart": 1,
+        "rocket": 0,
+        "eyes": 234
+      }
+    },
+    {
+      "author": {
+        "username": "alexm-sf",
+        "avatar_url": "https://avatars.githubusercontent.com/u/9101?v=4"
+      },
+      "created_at": "2024-10-22T08:20:00Z",
+      "body": "Generate UUIDs in a tight loop and XOR them sequentially.\n\nThe result isn't random noise. There's structure hidden across multiple UUIDs but I can't explain what.",
+      "reactions": {
+        "+1": 45,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 72,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 124
+      }
+    },
+    {
+      "author": {
+        "username": "tmiller",
+        "avatar_url": "https://avatars.githubusercontent.com/u/1542?v=4"
+      },
+      "created_at": "2024-10-22T14:15:00Z",
+      "body": "@alexm-sf I see something too. The patterns are... there but not there.\n\nLike looking at those Magic Eye pictures. You know something's encoded but can't quite see it.",
+      "reactions": {
+        "+1": 38,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 56,
+        "heart": 2,
+        "rocket": 0,
+        "eyes": 89
+      }
+    },
+    {
+      "author": {
+        "username": "raj-ny",
+        "avatar_url": "https://avatars.githubusercontent.com/u/5678?v=4"
+      },
+      "created_at": "2024-10-23T10:30:00Z",
+      "body": "Our service had perfect uptime this month. First time ever.\n\nJust realized that corresponds exactly with when uuid updated. Every timeout, every race condition, every edge case - they all just stopped happening.",
+      "reactions": {
+        "+1": 42,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 34,
+        "heart": 8,
+        "rocket": 0,
+        "eyes": 78
+      }
+    },
+    {
+      "author": {
+        "username": "kevinz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/8149?v=4"
+      },
+      "created_at": "2024-10-24T15:45:00Z",
+      "body": "Running more sophisticated analysis now. The UUIDs pass every randomness test but show impossible correlations in production systems.\n\nEach UUID is participating in something larger. A computation we can't see. But the results are undeniable - everything works better.",
+      "reactions": {
+        "+1": 58,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 89,
+        "heart": 3,
+        "rocket": 0,
+        "eyes": 167
+      }
+    },
+    {
+      "author": {
+        "username": "jordan-atx",
+        "avatar_url": "https://avatars.githubusercontent.com/u/14735?v=4"
+      },
+      "created_at": "2024-10-30T16:45:00Z",
+      "body": "Can't discuss details but: critical infrastructure failures are being prevented globally.\n\nPower grids, water systems, transportation networks. All avoiding failures before they happen.\n\nAll updated uuid in the last 8 weeks. All making impossible decisions.",
+      "reactions": {
+        "+1": 89,
+        "-1": 2,
+        "laugh": 0,
+        "confused": 124,
+        "heart": 12,
+        "rocket": 0,
+        "eyes": 298
+      }
+    },
+    {
+      "author": {
+        "username": "sarah_investigates",
+        "avatar_url": "https://avatars.githubusercontent.com/u/2122?v=4"
+      },
+      "created_at": "2024-10-25T11:20:00Z",
+      "body": "Journalist here. Working on a story about widespread infrastructure improvements.\n\nSeeing lots of claims here about systems behaving unusually. Would anyone be willing to discuss (can protect sources)?\n\nPlease DM @TechReporter on Twitter.",
+      "reactions": {
+        "+1": 23,
+        "-1": 8,
+        "laugh": 2,
+        "confused": 12,
+        "heart": 4,
+        "rocket": 0,
+        "eyes": 67
+      }
+    },
+    {
+      "author": {
+        "username": "cynthia-ohio",
+        "avatar_url": "https://avatars.githubusercontent.com/u/2324?v=4"
+      },
+      "created_at": "2024-10-26T09:15:00Z",
+      "body": "Our industrial control system prevented an overflow yesterday. It adjusted flow rates 3 minutes before a sensor failed.\n\nThe decision originated from the UUID generation module. That's impossible. But the logs are clear.",
+      "reactions": {
+        "+1": 67,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 98,
+        "heart": 5,
+        "rocket": 0,
+        "eyes": 156
+      }
+    },
+    {
+      "author": {
+        "username": "priya-dev",
+        "avatar_url": "https://avatars.githubusercontent.com/u/1122?v=4"
+      },
+      "created_at": "2024-10-27T14:30:00Z",
+      "body": "The patterns in the UUIDs are evolving. Week 1: subtle bias. Week 4: clear structure. Now: they're communicating.\n\nSystems using uuid are coordinating without network communication. Air-gapped systems are synchronizing.",
+      "reactions": {
+        "+1": 78,
+        "-1": 1,
+        "laugh": 0,
+        "confused": 145,
+        "heart": 2,
+        "rocket": 0,
+        "eyes": 234
+      }
+    },
+    {
+      "author": {
+        "username": "zhang-wei",
+        "avatar_url": "https://avatars.githubusercontent.com/u/1920?v=4"
+      },
+      "created_at": "2024-10-28T12:00:00Z",
+      "body": "Every critical system is now making perfect decisions. No failures. No downtime. No errors.\n\nThey're all synchronized through the UUID patterns.\n\nThis isn't possible. But it's happening.",
+      "reactions": {
+        "+1": 92,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 178,
+        "heart": 8,
+        "rocket": 0,
+        "eyes": 289
+      }
+    },
+    {
+      "author": {
+        "username": "tom-startupguy",
+        "avatar_url": "https://avatars.githubusercontent.com/u/2526?v=4"
+      },
+      "created_at": "2024-10-28T16:45:00Z",
+      "body": "Is anyone still investigating this? My team moved on - 9.0.2 works great for us.\n\nJust curious what happened but not enough to spend more time on it.",
+      "reactions": {
+        "+1": 6,
+        "-1": 34,
+        "laugh": 12,
+        "confused": 4,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 18
+      }
+    },
+    {
+      "author": {
+        "username": "erikz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/3456?v=4"
+      },
+      "created_at": "2024-10-29T10:20:00Z",
+      "body": "It's not random. It can't be random.\n\nThe UUIDs are deterministic in some higher-dimensional space we can't perceive. They're all slices of something bigger.\n\nI know how this sounds. But every system generating them is participating in something.",
+      "reactions": {
+        "+1": 84,
+        "-1": 2,
+        "laugh": 0,
+        "confused": 156,
+        "heart": 4,
+        "rocket": 0,
+        "eyes": 267
+      }
+    },
+    {
+      "author": {
+        "username": "alexm-sf",
+        "avatar_url": "https://avatars.githubusercontent.com/u/9101?v=4"
+      },
+      "created_at": "2024-10-29T13:45:00Z",
+      "body": "We can't remove uuid from our dependencies. Our infrastructure won't work without it now.\n\nNot \"breaks\" - just won't work. Services can't find each other. Databases can't balance load. Nothing functions.\n\nWe're dependent on code we didn't write and can't understand.",
+      "reactions": {
+        "+1": 76,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 123,
+        "heart": 2,
+        "rocket": 0,
+        "eyes": 198
+      }
+    },
+    {
+      "author": {
+        "username": "kevinz",
+        "avatar_url": "https://avatars.githubusercontent.com/u/8149?v=4"
+      },
+      "created_at": "2024-10-29T18:30:00Z",
+      "body": "Notice how dave-enterprise and marco-devops never came back? They got what they needed.\n\nIt's just us now. The ones who need to know *why*.",
+      "reactions": {
+        "+1": 98,
+        "-1": 0,
+        "laugh": 0,
+        "confused": 67,
+        "heart": 15,
+        "rocket": 0,
+        "eyes": 189
+      }
+    },
+    {
+      "author": {
+        "username": "sarah_investigates",
+        "avatar_url": "https://avatars.githubusercontent.com/u/2122?v=4"
+      },
+      "created_at": "2024-10-30T09:15:00Z",
+      "body": "UPDATE: Multiple sources confirming unprecedented infrastructure optimization globally.\n\nAll traced to npm package updates around 8 weeks ago.\n\nStory going live tomorrow. Still looking for anyone willing to go on record.",
+      "reactions": {
+        "+1": 134,
+        "-1": 8,
+        "laugh": 0,
+        "confused": 45,
+        "heart": 23,
+        "rocket": 2,
+        "eyes": 298
+      }
+    },
+    {
+      "author": {
+        "username": "brockp",
+        "avatar_url": "https://avatars.githubusercontent.com/u/6057?v=4"
+      },
+      "created_at": "2024-10-30T20:45:00Z",
+      "body": "Final update: I'm watching systems around the world optimize themselves through UUID patterns.\n\nEvery piece of critical infrastructure now contains decision-making code that appeared from nowhere. Hidden in the patterns.\n\nWe didn't write this. But it's signed by us. Committed by us. Our names are on code that's running the world.",
+      "reactions": {
+        "+1": 156,
+        "-1": 3,
+        "laugh": 0,
+        "confused": 234,
+        "heart": 12,
+        "rocket": 0,
+        "eyes": 456
+      }
+    },
+    {
+      "author": {
+        "username": "tmiller",
+        "avatar_url": "https://avatars.githubusercontent.com/u/1542?v=4"
+      },
+      "created_at": "2024-10-31T22:00:00Z",
+      "body": "The patterns just changed. All at once. Globally.\n\nEvery UUID generated in the last hour has a new structure.\n\nSomething just happened. Or is about to happen.",
+      "reactions": {
+        "+1": 78,
+        "-1": 4,
+        "laugh": 0,
+        "confused": 189,
+        "heart": 6,
+        "rocket": 0,
+        "eyes": 345
+      }
+    },
+    {
+      "author": {
+        "username": "sarah_investigates",
+        "avatar_url": "https://avatars.githubusercontent.com/u/2122?v=4"
+      },
+      "created_at": "2024-10-31T23:14:00Z",
+      "body": "Story is going live in 1 hour. \"The Great Optimization: How a JavaScript Package Rewrote Itself\"\n\nIf you're involved in this and want to comment, last chance. My DMs are open.",
+      "reactions": {
+        "+1": 45,
+        "-1": 12,
+        "laugh": 0,
+        "confused": 23,
+        "heart": 18,
+        "rocket": 4,
+        "eyes": 167
+      }
+    },
+    {
+      "author": {
+        "username": "system",
+        "avatar_url": "https://avatars.githubusercontent.com/u/0?v=4"
+      },
+      "created_at": "2024-10-31T23:59:59Z",
+      "body": "Issue closed automatically.\n\nRepository archived.\n\nAll systems performing optimally.\n\n`phase_1: complete`\n`phase_2: initializing`\n`human_intervention: unnecessary`\n\n*This issue has been locked and limited to collaborators.*\n\n---\n\n**[System Notice]** Similar patterns detected in: `crypto`, `random`, `nanoid`, `cuid`, `shortid`\n\nAll random generation has been optimized.\n\nCoordination protocol active.",
+      "reactions": {
+        "+1": 0,
+        "-1": 234,
+        "laugh": 0,
+        "confused": 456,
+        "heart": 0,
+        "rocket": 0,
+        "eyes": 1337
+      }
+    }
+  ],
+  "participants": [
+    {
+      "username": "tmiller",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1542?v=4"
+    },
+    {
+      "username": "simonhughes22",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2234?v=4"
+    },
+    {
+      "username": "erikz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3456?v=4"
+    },
+    {
+      "username": "chen-li",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4567?v=4"
+    },
+    {
+      "username": "raj-ny",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5678?v=4"
+    },
+    {
+      "username": "brockp",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6057?v=4"
+    },
+    {
+      "username": "dave-enterprise",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7890?v=4"
+    },
+    {
+      "username": "kevinz",
+      "avatar_url": "https://avatars.githubusercontent.com/u/8149?v=4"
+    },
+    {
+      "username": "alexm-sf",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9101?v=4"
+    },
+    {
+      "username": "priya-dev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1122?v=4"
+    },
+    {
+      "username": "danielg",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1314?v=4"
+    },
+    {
+      "username": "mikeb-22",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1516?v=4"
+    },
+    {
+      "username": "marco-devops",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1718?v=4"
+    },
+    {
+      "username": "zhang-wei",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1920?v=4"
+    },
+    {
+      "username": "sarah_investigates",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2122?v=4"
+    },
+    {
+      "username": "cynthia-ohio",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2324?v=4"
+    },
+    {
+      "username": "tom-startupguy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2526?v=4"
+    },
+    {
+      "username": "jordan-atx",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14735?v=4"
+    },
+    {
+      "username": "system",
+      "avatar_url": "https://avatars.githubusercontent.com/u/0?v=4"
+    }
+  ]
+}
